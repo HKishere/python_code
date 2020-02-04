@@ -51,11 +51,15 @@ def find_ima(page_url):
     return ima_addr
 
 def save_ima(folder, ima_addr):
-    pass
+    for each in ima_addr:
+        filename = each.split('/')[-1]
+        with open(filename, 'wb') as f:
+            img = urlopen(each)
+            f.write(img)
 
 def download_sombar(folder='ima_sombar'):
-   # os.mkdir(folder)
-   # os.chdir(folder)
+    #os.mkdir(folder)
+    a = os.chdir(folder)
     
     url = "https://www.3dmgame.com/bagua_65_1/"
     #page_url = "https://www.3dmgame.com/bagua/"
