@@ -17,15 +17,17 @@ def Init():
 #        print(each)
 
 def blockcheck(row, col, value):
-    map_block = map[row//3][col//3]
-    map_block = map_block + (map[row//3][col//3+1])
-    map_block = map_block + (map[row//3][col//3+2])
-    map_block = map_block + (map[row//3+1][col//3])
-    map_block = map_block + (map[row//3+1][col//3+1])
-    map_block = map_block + (map[row//3+1][col//3+2])
-    map_block = map_block + (map[row//3+2][col//3])
-    map_block = map_block + (map[row//3+2][col//3+1])
-    map_block = map_block + (map[row//3+2][col//3+2])
+    row = (row//3)*3
+    col = (col//3)*3
+    map_block = map[row][col]
+    map_block = map_block + (map[row][col+1])
+    map_block = map_block + (map[row][col+2])
+    map_block = map_block + (map[row+1][col])
+    map_block = map_block + (map[row+1][col+1])
+    map_block = map_block + (map[row+1][col+2])
+    map_block = map_block + (map[row+2][col])
+    map_block = map_block + (map[row+2][col+1])
+    map_block = map_block + (map[row+2][col+2])
     return map_block.find(str(value))
 
 
