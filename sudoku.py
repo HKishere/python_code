@@ -1,21 +1,30 @@
 import os
 map = ['002070340','000009001','009802070','600080007','000950003','830000010','400200060','020003000','900400700']
-def Init():
-    pass
-#    for each in range(1,10):
-#        print('input the sudu value of %dth row, use 0 to replace the blank:' %each)
-#        buf = input()
-#        while len(buf) != 9:
-#            print('input the sudu value of %dth row, use 0 to replace the blank:' %each)
-#            buf = input()
-#        else:
-#            map.append(buf)
-#    
-#    print("here is your map:\n==========")
-#    
-#    for each in map:
-#        print(each)
 
+#初始化数独
+def Init():
+    choose = input("是否要自己输入数独地图? 如果不输入将使用示例\n1.是\n2.否\n")
+    while ((choose != '1') and (choose != '2')):
+        print("请选择1或2!\n")
+        choose = input("是否要自己输入数独地图? 如果不输入将使用示例\n1.是\n2.否\n")
+    
+    if choose == 1:
+        for each in range(1,10):
+            print('input the sudu value of %dth row, use 0 to replace the blank:' %each)
+            buf = input()
+            while len(buf) != 9:
+                print('input the sudu value of %dth row, use 0 to replace the blank:' %each)
+                buf = input()
+            else:
+                map.append(buf)
+    if choose == 2:
+        pass
+    
+    print("here is your map:\n==========")
+    for each in map:
+        print(each)
+
+#判断是否满足九宫格条件
 def blockcheck(row, col, value):
     row = (row//3)*3
     col = (col//3)*3
@@ -30,7 +39,7 @@ def blockcheck(row, col, value):
     map_block = map_block + (map[row+2][col+2])
     return map_block.find(str(value))
 
-
+#解数独开始
 def Solve(row, col):
     if (row < 9) & (col < 9):
         if map[row][col] == '0':
@@ -44,7 +53,7 @@ def Solve(row, col):
                     buf = list(map[row])
                     buf[col] = str(each)
                     map[row] = "".join(buf)
-                    PrintMap(map)
+                    #PrintMap(map)
                     if Solve(row, col + 1) == 1:
                         return 1
                     else:
@@ -56,7 +65,8 @@ def Solve(row, col):
             return Solve(row + 1, 0)
         else:
             return 1
-            
+
+#将地图输出到文件中
 def PrintMap(map):
     with open('record.txt', 'a')as f:
         f.write('===========\n')
@@ -65,10 +75,11 @@ def PrintMap(map):
             f.write("\n")
         f.close()
 
-
+#主函数流程
 def Run():
     Init()
     Solve(0,0)
+    print('\n解数独完成!\n==========')
     for each in map:
         print(each)
 
