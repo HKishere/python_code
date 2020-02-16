@@ -59,7 +59,7 @@ def save_ima(folder, ima_addr):
 
 def download_sombar(folder='ima_sombar'):
     #os.mkdir(folder)
-    a = os.chdir(folder)
+    os.chdir(folder)
     
     url = "https://www.3dmgame.com/bagua_65_1/"
     #page_url = "https://www.3dmgame.com/bagua/"
