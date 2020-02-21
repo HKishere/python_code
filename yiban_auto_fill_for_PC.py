@@ -17,11 +17,6 @@ def Init():
         print("屏幕关闭,打开屏幕")
         d.screen_on()
     print("屏幕已开启")
-    if d(resourceId="com.smartisanos.keyguard:id/kg_music_layer").exists:
-        d.swipe(0.547, 0.900, 0.536, 0.119,0.4)
-        print("解锁屏幕")
-    else:
-        print("不需要解锁")
     #d.press("back")
     d.press("home")
     time.sleep(0.1)
@@ -81,10 +76,7 @@ def Auto_Fill():
 
 def main():
     clock = time.localtime()
-    while (clock.tm_hour != 1):
-        print("时候未到")
-        clock =time.localtime()
-        time.sleep(60)
+    print("现在时间:%d:%d"%(clock.tm_hour,clock.tm_min))
     Init()
     Open_yiban()
     Auto_Fill()
