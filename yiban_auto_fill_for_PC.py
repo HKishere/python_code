@@ -3,13 +3,14 @@ import os
 import subprocess
 import time
 try:
-    d = ut2.connect('127.0.0.1:62025')
+    d = ut2.connect('127.0.0.1:21513')
     print('模拟器启动,连接成功')
 except RuntimeError as reason:
     print('看样子模拟器没启动'+str(reason))
     print('启动模拟器')
-    run_simulator = subprocess.Popen(r"Nox.exe -clone:Nox_1")
-    d = ut2.connect('127.0.0.1:62025')
+    run_simulator = subprocess.Popen(r"E:\Microvirt\MEmu\MEmu.exe MEmu_1")
+    time.sleep(5)
+    d = ut2.connect('127.0.0.1:21513')
     print('模拟器启动,连接成功')
 
 def Init():
@@ -25,7 +26,7 @@ def Init():
 def Open_yiban():
     sess = d.session("com.yiban.app")
     print("进入易班")
-    time.sleep(14)
+    time.sleep(10)
     if d(resourceId="com.yiban.app:id/page_download_content").exists:
         d(resourceId="com.yiban.app:id/page_download_cancel").click()
     d(resourceId="com.yiban.app:id/tv_name", text="信息上报").click()
@@ -38,40 +39,27 @@ def Open_yiban():
     print("进入填写页面")
 
 def Auto_Fill():
-    time.sleep(2)
-    d.click(0.488, 0.5)
-    d.click(0.488, 0.5)
-
-    d.click(0.456, 0.917)
+    d.xpath('//*[@resource-id="form0content"]/android.view.View[2]/android.view.View[2]/android.view.View[1]/android.view.View[3]/android.view.View[2]').click()
+    d.xpath('//*[@resource-id="form0content"]/android.view.View[2]/android.view.View[2]/android.view.View[1]/android.view.View[3]/android.view.View[2]').click()
     d.set_fastinput_ime(True)
-    d.click(0.454, 0.92)
+    d.xpath('//*[@resource-id="form0content"]/android.view.View[2]/android.view.View[2]/android.view.View[5]/android.view.View[3]/android.view.View[2]').click()
     d.send_keys("黄祚恺")
-    #d.set_fastinput_ime(False)
-
-    d.click(0.990, 0.68)
-    time.sleep(0.5)
-    d.swipe(0.465, 0.590, 0.465, 0.140,0.4)
+    d.xpath('//*[@resource-id="com.yiban.app:id/relative"]/android.webkit.WebView[1]/android.webkit.WebView[1]/android.view.View[1]/android.view.View[1]').click()
+    d.swipe(0.961, 0.971, 0.974, 0.092, 0.2)
+    d.xpath('//*[@text="请输入辅导员"]').click()
     time.sleep(0.7)
-    d.swipe(0.465, 0.690, 0.465, 0.080,0.4)
+    d.swipe(0.385, 0.966, 0.379, 0.820, 0.2)
+    d.swipe(0.773, 0.854, 0.773, 0.900, 0.2)
+    d.swipe(0.773, 0.854, 0.773, 0.730, 0.2)
+    d.xpath('//*[@text="完成"]').click()
     time.sleep(0.7)
-    d.click(0.278, 0.289)
-    time.sleep(0.7)
-    d.swipe(0.385, 0.966, 0.379, 0.780,0.2)
-    d.swipe(0.758, 0.851, 0.755, 0.860,0.1)
-    time.sleep(0.5)
-    d.swipe(0.787, 0.951, 0.787, 0.670,0.2)
-    d.click(0.698, 0.572)
-    time.sleep(0.7)
-
-    d.swipe(0.965, 0.990, 0.965, 0.500,0.2)
-    d.click(0.344, 0.687)
-    d.click(0.551, 0.618)
-    time.sleep(0.5)
-    d.click(0.089, 0.752)
-    time.sleep(0.5)
-    d.click(0.701, 0.273)
-    time.sleep(0.5)
-    d.click(0.666, 0.836)
+    d.xpath('//*[@resource-id="form0content"]/android.view.View[2]/android.view.View[2]/android.view.View[15]/android.view.View[3]/android.view.View[2]').click()
+    d.xpath('//*[@text="与湖北人员或湖北返乡人员接触、经停湖北、确诊/疑似接触等三种情况：时间、位置、具体描述等。如没有以上情况则填写“无”。"]').click()
+    d.xpath('//*[@resource-id="weuiAgree"]').click()
+    time.sleep(1)
+    d.click(0.451, 0.208)
+    time.sleep(1)
+    d.xpath('//*[@resource-id="btn"]').click()
     print("填写完成")
 
 def main():
