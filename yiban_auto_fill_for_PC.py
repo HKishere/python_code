@@ -9,7 +9,7 @@ except RuntimeError as reason:
     print('看样子模拟器没启动'+str(reason))
     print('启动模拟器')
     run_simulator = subprocess.Popen(r"E:\Microvirt\MEmu\MEmu.exe MEmu_1")
-    time.sleep(5)
+    time.sleep(40)
     d = ut2.connect('127.0.0.1:21513')
     print('模拟器启动,连接成功')
 
@@ -35,7 +35,7 @@ def Open_yiban():
     while (d(resourceId="com.yiban.app:id/widget_custom_titlebar_center_title").get_text() != "我向大家报平安"):
         d(resourceId="com.yiban.app:id/widget_custom_titlebar_left_item").click()
         d(resourceId="com.yiban.app:id/tv_name", text="信息上报").click()
-        time.sleep(8)
+        time.sleep(10)
     print("进入填写页面")
 
 def Auto_Fill():
@@ -62,14 +62,23 @@ def Auto_Fill():
     d.xpath('//*[@resource-id="btn"]').click()
     print("填写完成")
 
+def ShutDown():    
+    print("准备关机")
+    os.system('shutdown -s -f -t 59')
+    while 1:
+        command = input("终止关机请输入1")
+        if command == "1":
+            os.system("shutdown -a")
+            break
+
 def main():
     clock = time.localtime()
     print("现在时间:%d:%d"%(clock.tm_hour,clock.tm_min))
     Init()
     Open_yiban()
     Auto_Fill()
-    print("准备关机")
-    os.system('shutdown -s -f -t 59')
+    ShutDown()
+        
 
 
 if __name__ == "__main__":
