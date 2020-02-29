@@ -74,14 +74,24 @@ def Auto_Fill():
     d.click(0.666, 0.836)
     print("填写完成")
 
+def ShutDown():
+    print("准备关机")
+    os.system('shutdown -s -f -t 59')
+    while 1:
+        comd = input("即将关机,输入1可以取消关机!")
+        if comd == "1":
+            os.system("shutdown -a")
+            print("关机已取消")
+            break
+
+
 def main():
     clock = time.localtime()
     print("现在时间:%d:%d"%(clock.tm_hour,clock.tm_min))
     Init()
     Open_yiban()
     Auto_Fill()
-    print("准备关机")
-    os.system('shutdown -s -f -t 59')
+
 
 
 if __name__ == "__main__":
