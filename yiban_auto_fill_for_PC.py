@@ -8,7 +8,7 @@ try:
 except RuntimeError as reason:
     print('看样子模拟器没启动'+str(reason))
     print('启动模拟器')
-    run_simulator = subprocess.Popen(r"Nox.exe -clone:Nox_1")
+    run_simulator = subprocess.Popen(r"E:\NOX\Nox\bin\Nox.exe -clone:Nox_1")
     d = ut2.connect('127.0.0.1:62025')
     print('模拟器启动,连接成功')
 
