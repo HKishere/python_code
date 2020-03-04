@@ -28,9 +28,16 @@ def Open_yiban():
     time.sleep(14)
     if d(resourceId="com.yiban.app:id/page_download_content").exists:
         d(resourceId="com.yiban.app:id/page_download_cancel").click()
+    time.sleep(5)
+    if d(resourceId="com.yiban.app:id/acrount_layout").exists:
+        d.xpath('//*[@resource-id="com.yiban.app:id/acrount_layout"]/android.widget.RelativeLayout[2]').click()
+        d.set_fastinput_ime(True)
+        d.send_keys("HZK,./1997")
+        d(resourceId="com.yiban.app:id/login_btn").click()
+        print('输入密码')
     d(resourceId="com.yiban.app:id/tv_name", text="信息上报").click()
     time.sleep(5)
-    print()
+
     while (d(resourceId="com.yiban.app:id/widget_custom_titlebar_center_title").get_text() != "我向大家报平安"):
         d(resourceId="com.yiban.app:id/widget_custom_titlebar_left_item").click()
         d(resourceId="com.yiban.app:id/tv_name", text="信息上报").click()
@@ -83,7 +90,7 @@ def ShutDown():
             os.system("shutdown -a")
             print("关机已取消")
             break
-
+        
 
 def main():
     clock = time.localtime()
@@ -91,6 +98,10 @@ def main():
     Init()
     Open_yiban()
     Auto_Fill()
+    ShutDown()
+    
+    
+    
 
 
 
