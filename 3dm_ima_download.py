@@ -29,54 +29,50 @@ def find_ima(page_url):
     html = urlopen(page_url).decode('utf-8')
     ima_addr = []
 
-    start_p = html.find('news_warp_center')
-    end_p = html.find('/div',start_p)
+    for each in range(0,30):
+        start_p = html.find('Abhishek Bachan	1')
+        end_p = html.find('Abhishek Bachan	100',start_p)
 
-    a = html.find('img src=', start_p,end_p)
+        a = html.find('http:', start_p,end_p)
 
-    #print(html[start_p:end_p])
+        print(html[start_p:end_p])
     
-    if start_p != -1:
-        while a != -1:
-            b = html.find('.jpg',a, a+100)
-            if b != -1:
-                ima_addr.append(html[a+9:b+4])
-            else:
-                b = a + 9
-            a = html.find('img src=', b,end_p)
-        for i in ima_addr:
-            print(i)
+        if start_p != -1:
+            while a != -1:
+                b = html.find('.jpg',a, a+100)
+                if b != -1:
+                    ima_addr.append(html[a:b+4])
+                else:
+                    b = a + 5
+                a = html.find('http:', b,end_p)
+            for i in ima_addr:
+                print(i)
 
-
-    return ima_addr
+        return ima_addr
 
 def save_ima(folder, ima_addr):
     for each in ima_addr:
         filename = each.split('/')[-1]
         with open(filename, 'wb') as f:
-            img = urlopen(each)
+            try:
+                img = urlopen(each)
+            except RuntimeError as reason:
+                return
             f.write(img)
 
 def download_sombar(folder='ima_sombar'):
     #os.mkdir(folder)
     os.chdir(folder)
     
-    url = "https://www.3dmgame.com/bagua_65_1/"
+    url = "https://www.cs.columbia.edu/CAVE/databases/pubfig/download/dev_urls.txt"
     #page_url = "https://www.3dmgame.com/bagua/"
-    root_article_addr = get_an(url)
-    page_num = int(get_pn(root_article_addr))
-    end_of_article_addr = root_article_addr.find('.html')
-    root_article_addr = root_article_addr[0: end_of_article_addr]
+    #root_article_addr = get_an(url)
+    #page_num = int(get_pn(root_article_addr))
+    #end_of_article_addr = root_article_addr.find('.html')
+    #root_article_addr = root_article_addr[0: end_of_article_addr]
 
-    for i in range(page_num):
-        #page_num -= i
-        article_addr = root_article_addr
-        if i > 0:
-            article_addr += "_"
-            article_addr += str(i+1)
-        article_addr += ".html"
-        ima_addr = find_ima(article_addr)
-        save_ima(folder, ima_addr)
+    ima_addr = find_ima(url)
+    save_ima(folder, ima_addr)
 
 if __name__ == "__main__":
     download_sombar()
